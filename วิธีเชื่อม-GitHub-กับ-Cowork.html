@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>วิธีเชื่อม GitHub กับ Cowork</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: #f4f6fa;
+    color: #1a2236;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+  .header {
+    background: linear-gradient(135deg, #1a2236 0%, #1e3a6e 100%);
+    color: white;
+    padding: 48px 40px 40px;
+    text-align: center;
+  }
+  .header h1 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+  .header p { color: rgba(255,255,255,0.65); font-size: 16px; }
+  .time-badge {
+    display: inline-block;
+    background: rgba(201,147,58,0.25);
+    border: 1px solid rgba(201,147,58,0.4);
+    color: #e8b55a;
+    padding: 6px 18px; border-radius: 20px;
+    font-size: 14px; font-weight: 600;
+    margin-top: 16px;
+  }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  .intro-box {
+    background: #fff8e8;
+    border: 1.5px solid #e8c97a;
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 40px;
+    font-size: 15px;
+    color: #5a4010;
+  }
+  .intro-box strong { color: #2d1f00; }
+
+  /* STEP */
+  .step {
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  }
+  .step-header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 22px 28px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .step-num {
+    width: 44px; height: 44px; min-width: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 800; color: white;
+  }
+  .step:nth-child(1) .step-num { background: #1e3a6e; }
+  .step:nth-child(2) .step-num { background: #2d7a5f; }
+  .step:nth-child(3) .step-num { background: #c9933a; }
+  .step:nth-child(4) .step-num { background: #8b3a9e; }
+
+  .step-title { font-size: 20px; font-weight: 700; flex: 1; }
+  .step-subtitle { font-size: 13px; color: #8a9ab0; font-weight: 400; margin-top: 2px; }
+
+  .step-body {
+    padding: 0 28px 28px;
+    border-top: 1px solid #f0f2f5;
+  }
+
+  .instruction {
+    display: flex; gap: 16px; align-items: flex-start;
+    margin: 20px 0;
+  }
+  .inst-icon {
+    width: 36px; height: 36px; min-width: 36px;
+    background: #f0f4ff;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .inst-text { font-size: 16px; padding-top: 4px; }
+  .inst-text strong { color: #1a2236; }
+  .inst-text .note { font-size: 13px; color: #8a9ab0; margin-top: 4px; }
+
+  /* COMMAND BOX */
+  .cmd-box {
+    background: #0f1923;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    position: relative;
+  }
+  .cmd-label {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #4a6a8a; font-weight: 600; margin-bottom: 8px;
+  }
+  .cmd-text {
+    font-family: 'Courier New', monospace;
+    font-size: 16px; color: #7dd3fc;
+    word-break: break-all;
+  }
+  .copy-btn {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.6);
+    font-size: 12px; font-weight: 600;
+    padding: 5px 12px; border-radius: 6px;
+    cursor: pointer; transition: background .15s;
+    font-family: 'Sarabun', sans-serif;
+  }
+  .copy-btn:hover { background: rgba(255,255,255,0.18); color: white; }
+  .copy-btn.copied { background: rgba(45,122,95,0.4); color: #5ddfb0; border-color: rgba(45,122,95,0.4); }
+
+  /* SCREEN MOCK */
+  .screen-mock {
+    background: #1a1a2e;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 16px 0;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .screen-bar {
+    background: #2a2a3e;
+    padding: 10px 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #28c840; }
+  .screen-title { font-size: 12px; color: rgba(255,255,255,0.35); margin-left: 8px; }
+  .screen-body {
+    padding: 16px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .sc-prompt { color: #5ddfb0; }
+  .sc-cmd { color: #7dd3fc; }
+  .sc-out { color: rgba(255,255,255,0.5); }
+  .sc-q { color: #fbbf24; }
+  .sc-a { color: #a78bfa; }
+  .sc-success { color: #34d399; }
+
+  /* CHOICE */
+  .choice-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin: 16px 0;
+  }
+  .choice {
+    border: 1.5px solid #e8edf5;
+    border-radius: 12px; padding: 14px 16px;
+  }
+  .choice.highlight { border-color: #c9933a; background: #fffaf0; }
+  .choice-tag {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 6px;
+  }
+  .choice.highlight .choice-tag { color: #c9933a; }
+  .choice:not(.highlight) .choice-tag { color: #8a9ab0; }
+  .choice p { font-size: 14px; color: #5a6a7a; }
+
+  /* RESULT */
+  .result-box {
+    background: #f0fff8;
+    border: 1.5px solid #86efac;
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+    margin: 20px 0;
+  }
+  .result-icon { font-size: 24px; }
+  .result-text { font-size: 15px; color: #14532d; }
+  .result-text strong { color: #166534; }
+
+  /* WARN */
+  .warn-box {
+    background: #fffbeb;
+    border: 1.5px solid #fcd34d;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex; gap: 12px; align-items: flex-start;
+    margin: 16px 0;
+    font-size: 14px; color: #78350f;
+  }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: #f0f2f5; margin: 20px 0; }
+
+  /* FINAL */
+  .final-box {
+    background: linear-gradient(135deg, #1a2236 0%, #1e3a6e 100%);
+    border-radius: 16px;
+    padding: 32px 28px;
+    color: white;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .final-box h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .final-box p { color: rgba(255,255,255,0.65); font-size: 15px; margin-bottom: 20px; }
+  .example-list {
+    display: flex; flex-direction: column; gap: 10px;
+    text-align: left;
+  }
+  .example-item {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  .example-item .you { color: #7dd3fc; font-weight: 600; }
+  .example-item .claude { color: #86efac; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔗 เชื่อม GitHub กับ Cowork</h1>
+  <p>ทำครั้งเดียว ใช้ได้ตลอด — ทำตามได้เลยทีละขั้น</p>
+  <div class="time-badge">⏱ ใช้เวลาประมาณ 5–10 นาที</div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro-box">
+    <strong>ทำไมต้องทำ?</strong><br/>
+    ตอนนี้ Claude อ่านและสร้างไฟล์ได้บนเครื่อง แต่ยังส่งขึ้น GitHub ไม่ได้
+    พอทำขั้นตอนนี้เสร็จ Claude จะ push code, สร้าง branch, commit แทนเราได้เลย
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">เปิด Terminal บน Mac</div>
+        <div class="step-subtitle">Terminal คือหน้าต่างพิมพ์คำสั่งสีดำ</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">🔍</div>
+        <div class="inst-text">
+          กด <strong>Command (⌘) + Spacebar</strong> พิมพ์ว่า <strong>"Terminal"</strong> แล้วกด Enter
+          <div class="note">หรือหาใน Applications → Utilities → Terminal</div>
+        </div>
+      </div>
+      <div class="screen-mock">
+        <div class="screen-bar">
+          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+          <div class="screen-title">Terminal</div>
+        </div>
+        <div class="screen-body">
+          <div><span class="sc-prompt">nueng@mac ~ %</span> <span class="sc-cmd">_</span></div>
+        </div>
+      </div>
+      <div class="result-box">
+        <div class="result-icon">✅</div>
+        <div class="result-text">เห็นหน้าต่างสีดำหรือสีเทา มีข้อความ % อยู่ข้างหน้า = <strong>พร้อมแล้ว</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">ติดตั้ง GitHub CLI</div>
+        <div class="step-subtitle">ตัวเชื่อมต่อระหว่าง Claude กับ GitHub</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">📋</div>
+        <div class="inst-text">
+          <strong>Copy คำสั่งด้านล่าง → วางใน Terminal → กด Enter</strong>
+        </div>
+      </div>
+
+      <div class="cmd-box">
+        <div class="cmd-label">คัดลอกแล้ววางใน Terminal</div>
+        <div class="cmd-text" id="cmd1">brew install gh</div>
+        <button class="copy-btn" onclick="copyCmd('cmd1', this)">Copy</button>
+      </div>
+
+      <div class="warn-box">
+        <span>⚠️</span>
+        <div>ถ้าขึ้นว่า <strong>"command not found: brew"</strong> ให้บอก Claude ได้เลย จะช่วยติดตั้ง Homebrew ให้ก่อน</div>
+      </div>
+
+      <div class="screen-mock">
+        <div class="screen-bar">
+          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+          <div class="screen-title">Terminal — กำลังติดตั้ง</div>
+        </div>
+        <div class="screen-body">
+          <div><span class="sc-prompt">nueng@mac ~ %</span> <span class="sc-cmd">brew install gh</span></div>
+          <div><span class="sc-out">==> Downloading gh...</span></div>
+          <div><span class="sc-out">==> Installing gh...</span></div>
+          <div><span class="sc-success">✓ gh installed successfully</span></div>
+        </div>
+      </div>
+
+      <div class="result-box">
+        <div class="result-icon">✅</div>
+        <div class="result-text">รอจนขึ้น % อีกครั้ง = <strong>ติดตั้งเสร็จแล้ว</strong> (อาจใช้เวลา 1-2 นาที)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Login GitHub</div>
+        <div class="step-subtitle">ยืนยันตัวตนครั้งเดียว จบ</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">📋</div>
+        <div class="inst-text">
+          <strong>Copy แล้ววางใน Terminal กด Enter</strong>
+        </div>
+      </div>
+
+      <div class="cmd-box">
+        <div class="cmd-label">คัดลอกแล้ววางใน Terminal</div>
+        <div class="cmd-text" id="cmd2">gh auth login</div>
+        <button class="copy-btn" onclick="copyCmd('cmd2', this)">Copy</button>
+      </div>
+
+      <p style="font-size:15px; color:#5a6a7a; margin: 16px 0 8px;">จะมีคำถามขึ้นมา ตอบตามนี้เลยครับ:</p>
+
+      <div class="screen-mock">
+        <div class="screen-bar">
+          <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+          <div class="screen-title">Terminal — ตอบคำถาม</div>
+        </div>
+        <div class="screen-body">
+          <div><span class="sc-q">? Where do you use GitHub?</span></div>
+          <div><span class="sc-a">→ เลือก GitHub.com (กด Enter)</span></div>
+          <div>&nbsp;</div>
+          <div><span class="sc-q">? What is your preferred protocol?</span></div>
+          <div><span class="sc-a">→ เลือก HTTPS (กด Enter)</span></div>
+          <div>&nbsp;</div>
+          <div><span class="sc-q">? How would you like to authenticate?</span></div>
+          <div><span class="sc-a">→ เลือก Login with a web browser (กด Enter)</span></div>
+          <div>&nbsp;</div>
+          <div><span class="sc-out">! First copy your one-time code: </span><span class="sc-success">XXXX-XXXX</span></div>
+          <div><span class="sc-out">Press Enter to open github.com...</span></div>
+        </div>
+      </div>
+
+      <div class="instruction" style="margin-top: 20px;">
+        <div class="inst-icon">🌐</div>
+        <div class="inst-text">
+          Browser จะเปิดขึ้นมา → วาง code ที่ได้ → กด <strong>Authorize</strong>
+          <div class="note">กลับมาที่ Terminal จะขึ้น "Logged in as [ชื่อ GitHub]"</div>
+        </div>
+      </div>
+
+      <div class="result-box">
+        <div class="result-icon">✅</div>
+        <div class="result-text">เห็นข้อความ <strong>"Logged in as ..."</strong> = <strong>เชื่อมสำเร็จแล้ว!</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">ตั้งชื่อให้ Git รู้จักเรา</div>
+        <div class="step-subtitle">ทำครั้งเดียว เพื่อให้ commit มีชื่อถูกต้อง</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">📋</div>
+        <div class="inst-text"><strong>Copy ทีละบรรทัด แล้ววางใน Terminal กด Enter</strong></div>
+      </div>
+
+      <div class="cmd-box">
+        <div class="cmd-label">บรรทัดที่ 1 — ชื่อ</div>
+        <div class="cmd-text" id="cmd3">git config --global user.name "Nueng"</div>
+        <button class="copy-btn" onclick="copyCmd('cmd3', this)">Copy</button>
+      </div>
+
+      <div class="cmd-box">
+        <div class="cmd-label">บรรทัดที่ 2 — อีเมล</div>
+        <div class="cmd-text" id="cmd4">git config --global user.email "pipawakorn.p@gmail.com"</div>
+        <button class="copy-btn" onclick="copyCmd('cmd4', this)">Copy</button>
+      </div>
+
+      <div class="result-box">
+        <div class="result-icon">✅</div>
+        <div class="result-text">ไม่มี error = <strong>เสร็จสมบูรณ์แล้ว!</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL -->
+  <div class="final-box">
+    <h3>🎉 เชื่อมสำเร็จ! Claude ทำให้ได้แล้ว</h3>
+    <p>หลังจากนี้บอก Claude ได้เลยว่าต้องการอะไร เช่น:</p>
+    <div class="example-list">
+      <div class="example-item">
+        <div class="you">Nueng: "Push ไฟล์ที่แก้ไปขึ้น GitHub หน่อย"</div>
+        <div class="claude">Claude: commit + push ให้เลย ✓</div>
+      </div>
+      <div class="example-item">
+        <div class="you">Nueng: "สร้าง branch ใหม่ชื่อ feature/login"</div>
+        <div class="claude">Claude: สร้าง branch ให้เลย ✓</div>
+      </div>
+      <div class="example-item">
+        <div class="you">Nueng: "ดึง code ล่าสุดจาก GitHub มา"</div>
+        <div class="claude">Claude: git pull ให้เลย ✓</div>
+      </div>
+      <div class="example-item">
+        <div class="you">Nueng: "สร้าง Pull Request ให้หน่อย"</div>
+        <div class="claude">Claude: เปิด PR ให้เลย ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top: 32px; color: #8a9ab0; font-size: 14px;">
+    ทำตามไม่ได้ตรงไหน → บอก Claude ในช่าง Cowork ได้เลยครับ
+  </div>
+
+</div>
+
+<script>
+function copyCmd(id, btn) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
