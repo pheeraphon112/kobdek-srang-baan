@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>คบเด็กสร้างบ้าน — โครงการพัฒนาผู้ประกอบการรุ่นใหม่</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&family=Noto+Serif+Thai:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0d1f3c;
+      --navy2:  #162d52;
+      --gold:   #c9933a;
+      --gold2:  #e8b55a;
+      --cream:  #fdf6eb;
+      --white:  #ffffff;
+      --text:   #1a2a40;
+      --muted:  #5a6a7a;
+      --accent: #e05c2a;
+      --green:  #2d7a5f;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 55%, #1e3a6e 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .hero-pattern {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(201,147,58,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(201,147,58,0.08) 0%, transparent 50%),
+        repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px);
+    }
+
+    .hero-top-bar {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(201,147,58,0.25);
+      padding: 14px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative; z-index: 2;
+    }
+    .hero-top-bar .uni-badge {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; letter-spacing: 0.04em; color: rgba(255,255,255,0.75);
+    }
+    .uni-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold2);
+      box-shadow: 0 0 8px var(--gold2);
+    }
+    .hero-top-bar .tag {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      padding: 5px 14px; border-radius: 20px;
+      background: rgba(201,147,58,0.18); border: 1px solid rgba(201,147,58,0.35);
+      color: var(--gold2);
+      text-transform: uppercase;
+    }
+
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 90px 48px 100px;
+      position: relative; z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold2); font-weight: 600;
+      margin-bottom: 22px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 36px; height: 2px; background: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: clamp(52px, 7vw, 88px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+    }
+    .hero h1 .accent { color: var(--gold2); }
+
+    .hero-sub {
+      font-size: 20px; font-weight: 300;
+      color: rgba(255,255,255,0.78);
+      max-width: 620px;
+      line-height: 1.75;
+      margin-bottom: 50px;
+    }
+
+    .hero-cta-row {
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: var(--navy);
+      font-weight: 700; font-size: 16px;
+      padding: 16px 34px; border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 6px 28px rgba(201,147,58,0.35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(201,147,58,0.45); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1.5px solid rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.85);
+      font-size: 15px; font-weight: 500;
+      padding: 15px 28px; border-radius: 50px;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-outline:hover { border-color: var(--gold2); color: var(--gold2); }
+
+    .hero-stats {
+      display: flex; gap: 48px; flex-wrap: wrap;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat-num {
+      font-size: 36px; font-weight: 800; color: var(--gold2);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 4px;
+    }
+
+    .hero-visual {
+      position: absolute; right: 48px; top: 50%;
+      transform: translateY(-50%);
+      width: 340px; height: 340px;
+      opacity: 0.08;
+      z-index: 1;
+    }
+    .hero-visual svg { width: 100%; height: 100%; }
+
+    /* ─── SECTION WRAPPER ─── */
+    section { padding: 90px 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+    .section-label {
+      font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 700; color: var(--gold);
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--gold); }
+
+    .section-title {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.25; margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 17px; color: var(--muted); max-width: 620px; line-height: 1.8;
+    }
+
+    /* ─── ABOUT ─── */
+    .about { background: white; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+    }
+    .about-body { font-size: 17px; color: var(--muted); line-height: 1.85; }
+    .about-body p + p { margin-top: 18px; }
+    .about-body strong { color: var(--navy); font-weight: 600; }
+
+    .coordinator-card {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      color: white;
+      position: relative; overflow: hidden;
+    }
+    .coordinator-card::before {
+      content: ''; position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(201,147,58,0.12);
+    }
+    .coordinator-card::after {
+      content: ''; position: absolute;
+      bottom: -30px; left: -30px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(201,147,58,0.07);
+    }
+    .coord-role {
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold2); font-weight: 700; margin-bottom: 16px;
+    }
+    .coord-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 800; color: var(--navy);
+      margin-bottom: 20px;
+      position: relative; z-index: 1;
+    }
+    .coord-name {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 24px; font-weight: 700;
+      margin-bottom: 6px; position: relative; z-index: 1;
+    }
+    .coord-title {
+      font-size: 14px; color: rgba(255,255,255,0.6);
+      line-height: 1.6; position: relative; z-index: 1;
+    }
+    .coord-divider {
+      height: 1px; background: rgba(255,255,255,0.12);
+      margin: 24px 0; position: relative; z-index: 1;
+    }
+    .coord-quote {
+      font-size: 15px; color: rgba(255,255,255,0.75);
+      line-height: 1.7; font-style: italic;
+      position: relative; z-index: 1;
+    }
+    .coord-quote::before { content: '"'; color: var(--gold2); font-size: 32px; line-height: 0; vertical-align: -12px; margin-right: 4px; }
+
+    /* ─── HOW IT WORKS ─── */
+    .how { background: var(--cream); }
+    .steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 56px;
+      position: relative;
+    }
+    .steps::before {
+      content: ''; position: absolute;
+      top: 44px; left: 10%; right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
+      z-index: 0;
+    }
+    .step {
+      text-align: center; padding: 0 20px;
+      position: relative; z-index: 1;
+    }
+    .step-num {
+      width: 88px; height: 88px; border-radius: 50%;
+      background: white;
+      border: 3px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 4px 24px rgba(201,147,58,0.18);
+    }
+    .step-num .n {
+      font-size: 32px; font-weight: 800; color: var(--navy);
+      font-family: 'Noto Serif Thai', serif;
+    }
+    .step-icon {
+      font-size: 28px; margin-bottom: 4px;
+    }
+    .step h3 {
+      font-size: 17px; font-weight: 700; color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .step p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ─── BENEFITS ─── */
+    .benefits { background: white; }
+    .benefits-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px; margin-top: 56px;
+    }
+    .benefit-card {
+      border-radius: var(--radius);
+      padding: 40px 36px;
+      position: relative; overflow: hidden;
+    }
+    .benefit-card.entrepreneurs {
+      background: linear-gradient(135deg, var(--navy) 0%, #1e3a6e 100%);
+      color: white;
+    }
+    .benefit-card.students {
+      background: linear-gradient(135deg, #1a4a35 0%, var(--green) 100%);
+      color: white;
+    }
+    .benefit-card::before {
+      content: ''; position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .benefit-icon-big {
+      font-size: 48px; margin-bottom: 20px;
+    }
+    .benefit-card-label {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 700; margin-bottom: 10px;
+      opacity: 0.65;
+    }
+    .benefit-card h3 {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 26px; font-weight: 700; margin-bottom: 20px;
+    }
+    .benefit-list {
+      list-style: none; display: flex; flex-direction: column; gap: 14px;
+    }
+    .benefit-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 15px; line-height: 1.6;
+    }
+    .benefit-list li::before {
+      content: '✓';
+      width: 22px; height: 22px; min-width: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700;
+      margin-top: 1px;
+    }
+
+    /* ─── STRUCTURE ─── */
+    .structure { background: var(--cream); }
+    .struct-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 56px;
+    }
+    .struct-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      border-top: 4px solid transparent;
+      transition: transform .25s, box-shadow .25s;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    }
+    .struct-card:nth-child(1) { border-top-color: var(--gold); }
+    .struct-card:nth-child(2) { border-top-color: var(--accent); }
+    .struct-card:nth-child(3) { border-top-color: var(--green); }
+    .struct-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.1); }
+    .struct-icon { font-size: 36px; margin-bottom: 16px; }
+    .struct-card h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .struct-card p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+
+    /* ─── PITCH CRITERIA ─── */
+    .criteria { background: var(--navy); color: white; }
+    .criteria .section-title { color: white; }
+    .criteria .section-desc { color: rgba(255,255,255,0.6); }
+    .criteria-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 56px;
+    }
+    .criteria-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,147,58,0.2);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: background .2s;
+    }
+    .criteria-item:hover { background: rgba(255,255,255,0.08); }
+    .criteria-num {
+      font-size: 44px; font-weight: 800; color: rgba(201,147,58,0.25);
+      font-family: 'Noto Serif Thai', serif;
+      line-height: 1; margin-bottom: 12px;
+    }
+    .criteria-item h4 { font-size: 17px; font-weight: 700; color: var(--gold2); margin-bottom: 8px; }
+    .criteria-item p { font-size: 14px; color: rgba(255,255,255,0.58); line-height: 1.7; }
+
+    /* ─── TIMELINE ─── */
+    .timeline-sec { background: white; }
+    .timeline {
+      position: relative;
+      margin-top: 56px;
+      padding-left: 40px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--gold), var(--gold2), rgba(201,147,58,0.1));
+      border-radius: 2px;
+    }
+    .tl-item {
+      position: relative;
+      padding: 0 0 48px 40px;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot {
+      position: absolute; left: -50px; top: 4px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: white; border: 3px solid var(--gold);
+      box-shadow: 0 0 0 4px rgba(201,147,58,0.12);
+    }
+    .tl-phase {
+      font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 700; color: var(--gold); margin-bottom: 6px;
+    }
+    .tl-item h4 { font-size: 19px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .tl-item p { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 680px; }
+
+    /* ─── CTA ─── */
+    .cta {
+      background: linear-gradient(135deg, var(--gold) 0%, #d4a040 50%, var(--gold2) 100%);
+      padding: 90px 0;
+      text-align: center;
+    }
+    .cta h2 {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 700; color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .cta p { font-size: 18px; color: rgba(13,31,60,0.7); margin-bottom: 40px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .cta-btn-row { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .cta .btn-dark {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--navy); color: white;
+      font-weight: 700; font-size: 16px;
+      padding: 16px 34px; border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(13,31,60,0.25);
+      transition: transform .2s;
+    }
+    .cta .btn-dark:hover { transform: translateY(-2px); }
+    .cta .btn-light {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 2px solid rgba(13,31,60,0.25);
+      color: var(--navy);
+      font-size: 15px; font-weight: 600;
+      padding: 14px 28px; border-radius: 50px;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .cta .btn-light:hover { background: rgba(13,31,60,0.07); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 36px 48px;
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    footer strong { color: rgba(255,255,255,0.7); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,31,60,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,147,58,0.15);
+      padding: 14px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 18px; font-weight: 700; color: var(--gold2);
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px; color: rgba(255,255,255,0.6);
+      text-decoration: none; font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold2); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .container { padding: 0 24px; }
+      nav, .hero-top-bar { padding-left: 24px; padding-right: 24px; }
+      .hero-inner { padding: 64px 24px 72px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .steps { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .steps::before { display: none; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .struct-grid { grid-template-columns: 1fr 1fr; }
+      .criteria-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .struct-grid, .criteria-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .hero-stats { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">คบเด็กสร้างบ้าน</div>
+  <ul class="nav-links">
+    <li><a href="#about">เกี่ยวกับโครงการ</a></li>
+    <li><a href="#how">กระบวนการ</a></li>
+    <li><a href="#benefits">ประโยชน์</a></li>
+    <li><a href="#criteria">เกณฑ์การนำเสนอ</a></li>
+    <li><a href="#timeline">ไทม์ไลน์</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-pattern"></div>
+
+  <div class="hero-top-bar">
+    <div class="uni-badge">
+      <div class="uni-dot"></div>
+      มหาวิทยาลัยศรีปทุม · ภาควิชาบริหารธุรกิจ
+    </div>
+    <div class="tag">โครงการพัฒนาผู้ประกอบการรุ่นใหม่</div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Entrepreneurship × Education</div>
+    <h1>คบเด็ก<br/><span class="accent">สร้างบ้าน</span></h1>
+    <p class="hero-sub">
+      เชื่อมโยงผู้ประกอบการกับนักศึกษาที่มีไฟ<br/>
+      เพื่อพัฒนาโจทย์ธุรกิจจริง สู่ความร่วมมือที่ยั่งยืน
+    </p>
+    <div class="hero-cta-row">
+      <a href="#how" class="btn-primary">
+        <span>▶</span> ดูกระบวนการทำงาน
+      </a>
+      <a href="#benefits" class="btn-outline">
+        สำหรับผู้ประกอบการ →
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">Real</div>
+        <div class="hero-stat-label">โจทย์ธุรกิจจริงจากผู้ประกอบการ</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">Pitch</div>
+        <div class="hero-stat-label">นำเสนอแนวทางธุรกิจอย่างครบรอบด้าน</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">Win</div>
+        <div class="hero-stat-label">ทีมชนะได้รับงบประมาณ &amp; พาร์ทเนอร์ชิป</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="section-label">เกี่ยวกับโครงการ</div>
+        <h2 class="section-title">สร้างสะพาน<br/>ระหว่างโลกธุรกิจ<br/>กับห้องเรียน</h2>
+        <div class="about-body" style="margin-top:24px;">
+          <p>
+            <strong>คบเด็กสร้างบ้าน</strong> คือโครงการที่ออกแบบมาเพื่อเชื่อมโยงระหว่าง
+            <strong>ผู้ประกอบการที่มีโจทย์ธุรกิจจริง</strong> กับ
+            <strong>นักศึกษาที่เต็มไปด้วยพลังงานและมุมมองใหม่</strong>
+            โดยเปิดพื้นที่ให้ทั้งสองฝ่ายได้เรียนรู้และเติบโตไปด้วยกัน
+          </p>
+          <p>
+            ผู้ประกอบการนำโจทย์ธุรกิจที่แท้จริงมาวางไว้บนโต๊ะ
+            จากนั้นนักศึกษาจะนำเสนอแนวทางพัฒนาธุรกิจอย่างรอบด้าน
+            ครอบคลุมทั้งมิติตลาด การเงิน เทคโนโลยี และความยั่งยืน
+          </p>
+          <p>
+            ที่สุดแล้ว <strong>ผู้ประกอบการจะเลือกทีมที่ดีที่สุด</strong>
+            เพื่อนำโครงการไปพัฒนาต่อ พร้อมสนับสนุนงบประมาณ
+            หรือเปิดโอกาสให้น้องๆ ร่วมเป็นพาร์ทเนอร์ในธุรกิจนั้นๆ
+          </p>
+        </div>
+      </div>
+      <div>
+        <div class="coordinator-card">
+          <div class="coord-role">ผู้บริหารโครงการ</div>
+          <div class="coord-avatar">อ</div>
+          <div class="coord-name">ผศ. ดร. อภิชญา พิภวากร</div>
+          <div class="coord-title">
+            หัวหน้าภาควิชาบริหารธุรกิจ<br/>
+            หลักสูตรบริหารธุรกิจ<br/>
+            มหาวิทยาลัยศรีปทุม
+          </div>
+          <div class="coord-divider"></div>
+          <div class="coord-quote">
+            เราเชื่อว่าพลังของเด็กรุ่นใหม่ ผสมกับประสบการณ์ของผู้ประกอบการ
+            คือสูตรสร้างธุรกิจที่แข็งแกร่งและยั่งยืนสำหรับอนาคต
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="section-label">กระบวนการทำงาน</div>
+    <h2 class="section-title">4 ขั้นตอนสู่ความสำเร็จ</h2>
+    <p class="section-desc">ออกแบบกระบวนการให้ทั้งสองฝ่ายได้ประโยชน์สูงสุด ตั้งแต่การวางโจทย์ไปจนถึงการร่วมลงมือทำจริง</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"><span class="n">01</span></div>
+        <div class="step-icon">💡</div>
+        <h3>ผู้ประกอบการครีเอทโจทย์</h3>
+        <p>ผู้ประกอบการนำโจทย์ธุรกิจจริงที่ต้องการพัฒนา มาเปิดเผยให้นักศึกษาได้รับทราบบริบทอย่างครบถ้วน</p>
+      </div>
+      <div class="step">
+        <div class="step-num"><span class="n">02</span></div>
+        <div class="step-icon">🔬</div>
+        <h3>ทีมนักศึกษาวิเคราะห์</h3>
+        <p>นักศึกษาแต่ละทีมศึกษาโจทย์ วิเคราะห์ตลาด คู่แข่ง โอกาส และพัฒนาแนวทางธุรกิจที่เป็นรูปธรรม</p>
+      </div>
+      <div class="step">
+        <div class="step-num"><span class="n">03</span></div>
+        <div class="step-icon">🎤</div>
+        <h3>Pitching วันสำคัญ</h3>
+        <p>แต่ละทีมนำเสนอต่อผู้ประกอบการและคณะกรรมการ ครอบคลุมทุกมิติธุรกิจอย่างมืออาชีพ</p>
+      </div>
+      <div class="step">
+        <div class="step-num"><span class="n">04</span></div>
+        <div class="step-icon">🤝</div>
+        <h3>เลือกทีม &amp; ร่วมทำธุรกิจ</h3>
+        <p>ผู้ประกอบการเลือกทีมที่ใช่ พร้อมสนับสนุนงบประมาณ หรือเชิญเป็นพาร์ทเนอร์ในโครงการ</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div class="container">
+    <div class="section-label">ประโยชน์ที่ได้รับ</div>
+    <h2 class="section-title">ทุกฝ่ายชนะ<br/>ด้วยกัน</h2>
+    <p class="section-desc">โครงการนี้ออกแบบมาให้เกิดคุณค่าสูงสุดทั้งสำหรับผู้ประกอบการและนักศึกษา</p>
+    <div class="benefits-grid" style="margin-top: 56px;">
+      <div class="benefit-card entrepreneurs">
+        <div class="benefit-icon-big">🏢</div>
+        <div class="benefit-card-label">สำหรับ</div>
+        <h3>ผู้ประกอบการ</h3>
+        <ul class="benefit-list">
+          <li>ได้รับมุมมองใหม่จากคนรุ่นใหม่ที่มีพลังงานและความคิดสร้างสรรค์</li>
+          <li>เข้าถึงทีมที่วิเคราะห์โจทย์จริงของคุณอย่างลึกซึ้งและรอบด้าน</li>
+          <li>ประหยัดเวลาและต้นทุนในการค้นหาพาร์ทเนอร์หรือทีมงานรุ่นใหม่</li>
+          <li>สร้าง Brand Ambassador ในกลุ่มคนรุ่นใหม่และมหาวิทยาลัย</li>
+          <li>เลือกได้ว่าจะสนับสนุนงบ ชวนเป็นพาร์ทเนอร์ หรือรับเข้าทำงาน</li>
+        </ul>
+      </div>
+      <div class="benefit-card students">
+        <div class="benefit-icon-big">🎓</div>
+        <div class="benefit-card-label">สำหรับ</div>
+        <h3>นักศึกษา</h3>
+        <ul class="benefit-list">
+          <li>ได้ทำงานกับโจทย์ธุรกิจจริง ไม่ใช่แค่กรณีศึกษาในตำรา</li>
+          <li>พัฒนาทักษะ Pitching และการนำเสนอในระดับมืออาชีพ</li>
+          <li>โอกาสได้รับงบประมาณเพื่อพัฒนาโปรเจกต์ต่อจริง</li>
+          <li>เปิดประตูสู่โอกาสเป็นผู้ประกอบการและพาร์ทเนอร์ทางธุรกิจ</li>
+          <li>สร้าง Portfolio และ Connection กับผู้ประกอบการตัวจริง</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRUCTURE -->
+<section class="structure">
+  <div class="container">
+    <div class="section-label">โครงสร้างโครงการ</div>
+    <h2 class="section-title">3 เสาหลักของโครงการ</h2>
+    <div class="struct-grid">
+      <div class="struct-card">
+        <div class="struct-icon">🏗️</div>
+        <h3>โจทย์ที่มีคุณภาพ</h3>
+        <p>ผู้ประกอบการต้นเรื่องนำโจทย์ที่เป็น Real Business Challenge มาเปิดเวที ไม่ใช่โจทย์สมมติ แต่คือปัญหาหรือโอกาสที่ต้องการแก้จริงๆ</p>
+      </div>
+      <div class="struct-card">
+        <div class="struct-icon">🔥</div>
+        <h3>การแข่งขัน Pitching</h3>
+        <p>นักศึกษาแต่ละทีมนำเสนอด้วยมาตรฐานสูง ครบทั้งมิติตลาด การเงิน แผนปฏิบัติการ และแนวทางยั่งยืน ต่อหน้าผู้ประกอบการจริง</p>
+      </div>
+      <div class="struct-card">
+        <div class="struct-icon">🌱</div>
+        <h3>การพัฒนาต่อยอด</h3>
+        <p>ทีมที่ได้รับเลือกจะได้รับการสนับสนุนต่อเนื่อง ไม่ว่าจะเป็นงบประมาณ Mentorship หรือโอกาสร่วมลงทุนในโครงการจริง</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PITCH CRITERIA -->
+<section class="criteria" id="criteria">
+  <div class="container">
+    <div class="section-label" style="color: var(--gold2);">เกณฑ์การนำเสนอ</div>
+    <h2 class="section-title">น้องๆ ต้องนำเสนออะไร</h2>
+    <p class="section-desc">ทุกทีมต้องวิเคราะห์และนำเสนอครบทั้ง 6 มิติ เพื่อให้ผู้ประกอบการมองเห็นภาพธุรกิจอย่างรอบด้าน</p>
+    <div class="criteria-grid">
+      <div class="criteria-item">
+        <div class="criteria-num">01</div>
+        <h4>การวิเคราะห์ตลาด</h4>
+        <p>ขนาดตลาด กลุ่มเป้าหมาย Insight ของลูกค้า และการวิเคราะห์คู่แข่งในเชิงลึก</p>
+      </div>
+      <div class="criteria-item">
+        <div class="criteria-num">02</div>
+        <h4>Value Proposition</h4>
+        <p>คุณค่าที่แตกต่างจากตลาด ทำไมลูกค้าถึงเลือก และ Positioning ที่ชัดเจน</p>
+      </div>
+      <div class="criteria-item">
+        <div class="criteria-num">03</div>
+        <h4>Business Model</h4>
+        <p>รายได้จากช่องทางใด โครงสร้างต้นทุน และความเป็นไปได้ในการทำกำไรระยะยาว</p>
+      </div>
+      <div class="criteria-item">
+        <div class="criteria-num">04</div>
+        <h4>แผนการเงิน</h4>
+        <p>การประมาณการรายได้ ต้นทุน งบประมาณที่ต้องการ และจุดคุ้มทุน</p>
+      </div>
+      <div class="criteria-item">
+        <div class="criteria-num">05</div>
+        <h4>แผนปฏิบัติการ</h4>
+        <p>ขั้นตอนการดำเนินงาน ทีมงานที่ต้องการ และ Roadmap ระยะสั้น-กลาง-ยาว</p>
+      </div>
+      <div class="criteria-item">
+        <div class="criteria-num">06</div>
+        <h4>ความยั่งยืนและผลกระทบ</h4>
+        <p>ผลกระทบต่อสังคม สิ่งแวดล้อม และแนวทางให้ธุรกิจเติบโตได้ในระยะยาว</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-sec" id="timeline">
+  <div class="container">
+    <div class="section-label">ไทม์ไลน์โครงการ</div>
+    <h2 class="section-title">เส้นทางสู่วัน Pitching</h2>
+    <p class="section-desc">โครงการออกแบบให้มีความต่อเนื่อง ตั้งแต่การเปิดรับโจทย์จนถึงวันประกาศผลและเริ่มต้นความร่วมมือ</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 1</div>
+        <h4>เปิดรับสมัครผู้ประกอบการและโจทย์</h4>
+        <p>ผู้ประกอบการที่สนใจยื่นโจทย์ธุรกิจพร้อม Brief สั้นๆ เพื่อให้คณะกรรมการคัดเลือกโจทย์ที่มีศักยภาพและเหมาะสมกับระดับนักศึกษา</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 2</div>
+        <h4>เปิดรับสมัครทีมนักศึกษา + Kickoff</h4>
+        <p>นักศึกษารวมทีมสมัครเข้าโครงการ จากนั้นจัดงาน Kickoff เพื่อให้ผู้ประกอบการได้นำเสนอโจทย์โดยตรง และทีมเลือกโจทย์ที่ต้องการพัฒนา</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 3</div>
+        <h4>ช่วงพัฒนาโปรเจกต์ + Mentorship</h4>
+        <p>นักศึกษาแต่ละทีมได้รับ Mentor ผู้เชี่ยวชาญ และมีโอกาสนัดพบผู้ประกอบการต้นเรื่องเพื่อถามข้อมูลเพิ่มเติม พัฒนาแผนธุรกิจอย่างเต็มที่</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 4</div>
+        <h4>วัน Pitching — นำเสนอต่อผู้ประกอบการ</h4>
+        <p>แต่ละทีมนำเสนอต่อผู้ประกอบการและคณะกรรมการ พร้อมรับ Feedback ก่อนที่ผู้ประกอบการจะตัดสินใจเลือกทีมที่ดีที่สุด</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-phase">Phase 5</div>
+        <h4>ประกาศผล &amp; เริ่มต้นความร่วมมือ</h4>
+        <p>ทีมชนะได้รับการสนับสนุนจากผู้ประกอบการ ไม่ว่าจะเป็นงบประมาณ ทรัพยากร หรือโอกาสร่วมเป็นพาร์ทเนอร์ในธุรกิจจริง</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <h2>พร้อมร่วมเปลี่ยนแปลง<br/>อนาคตธุรกิจไทยไปด้วยกัน?</h2>
+    <p>ไม่ว่าคุณจะเป็นผู้ประกอบการที่มีโจทย์รอการพัฒนา หรือนักศึกษาที่อยากพิสูจน์ตัวเอง — โครงการนี้คือพื้นที่ของคุณ</p>
+    <div class="cta-btn-row">
+      <a href="#" class="btn-dark">สมัครในฐานะผู้ประกอบการ</a>
+      <a href="#" class="btn-light">สมัครในฐานะนักศึกษา</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>โครงการ คบเด็กสร้างบ้าน</strong> &nbsp;·&nbsp;
+  ภาควิชาบริหารธุรกิจ มหาวิทยาลัยศรีปทุม &nbsp;·&nbsp;
+  ผู้บริหารโครงการ: ผศ. ดร. อภิชญา พิภวากร
+</footer>
+
+</body>
+</html>
