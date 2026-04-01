@@ -360,6 +360,65 @@
     .struct-card h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
     .struct-card p { font-size: 14px; color: var(--muted); line-height: 1.75; }
 
+    /* ─── DISTINCTION ─── */
+    .distinction { background: var(--navy); padding: 72px 0; }
+    .distinction-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 48px;
+    }
+    .distinction-title {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 700; color: white;
+      text-align: center; margin-bottom: 56px;
+    }
+    .distinction-title span { color: var(--gold2); }
+    .vs-grid {
+      display: grid; grid-template-columns: 1fr 80px 1fr;
+      gap: 0; align-items: stretch;
+    }
+    .vs-col {
+      border-radius: var(--radius);
+      padding: 36px 32px;
+    }
+    .vs-col.old {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .vs-col.new {
+      background: linear-gradient(135deg, rgba(201,147,58,0.15) 0%, rgba(201,147,58,0.08) 100%);
+      border: 1px solid rgba(201,147,58,0.35);
+    }
+    .vs-label {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 700; margin-bottom: 20px;
+    }
+    .vs-col.old .vs-label { color: rgba(255,255,255,0.35); }
+    .vs-col.new .vs-label { color: var(--gold2); }
+    .vs-col h4 {
+      font-size: 18px; font-weight: 700; margin-bottom: 20px;
+    }
+    .vs-col.old h4 { color: rgba(255,255,255,0.45); text-decoration: line-through; }
+    .vs-col.new h4 { color: white; }
+    .vs-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .vs-list li { font-size: 15px; line-height: 1.6; display: flex; gap: 10px; align-items: flex-start; }
+    .vs-col.old .vs-list li { color: rgba(255,255,255,0.4); }
+    .vs-col.old .vs-list li::before { content: '✕'; color: rgba(255,255,255,0.2); font-size: 13px; margin-top: 2px; }
+    .vs-col.new .vs-list li { color: rgba(255,255,255,0.85); }
+    .vs-col.new .vs-list li::before { content: '✓'; color: var(--gold2); font-size: 13px; margin-top: 2px; }
+    .vs-divider {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .vs-divider-inner {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(201,147,58,0.15); border: 2px solid rgba(201,147,58,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 800; color: var(--gold2);
+    }
+    @media (max-width: 720px) {
+      .vs-grid { grid-template-columns: 1fr; gap: 24px; }
+      .vs-divider { display: none; }
+    }
+
     /* ─── PITCH CRITERIA ─── */
     .criteria { background: var(--navy); color: white; }
     .criteria .section-title { color: white; }
@@ -533,11 +592,11 @@
   </div>
 
   <div class="hero-inner">
-    <div class="hero-eyebrow">Entrepreneurship × Education</div>
+    <div class="hero-eyebrow">Real Co-Creation × Not Internship</div>
     <h1>คบเด็ก<br/><span class="accent">สร้างบ้าน</span></h1>
     <p class="hero-sub">
-      เชื่อมโยงผู้ประกอบการกับนักศึกษาที่มีไฟ<br/>
-      เพื่อพัฒนาโจทย์ธุรกิจจริง สู่ความร่วมมือที่ยั่งยืน
+      นักศึกษา Pitch แนวคิด — แล้วลงมือสร้างโครงการใหม่<br/>
+      ร่วมกับผู้ประกอบการตัวจริงที่พร้อม Commit ทรัพยากร
     </p>
     <div class="hero-cta-row">
       <a href="#how" class="btn-primary">
@@ -549,16 +608,16 @@
     </div>
     <div class="hero-stats">
       <div>
-        <div class="hero-stat-num">Real</div>
-        <div class="hero-stat-label">โจทย์ธุรกิจจริงจากผู้ประกอบการ</div>
+        <div class="hero-stat-num">New</div>
+        <div class="hero-stat-label">โครงการใหม่ที่ยังไม่เคยมีมาก่อน</div>
       </div>
       <div>
         <div class="hero-stat-num">Pitch</div>
-        <div class="hero-stat-label">นำเสนอแนวทางธุรกิจอย่างครบรอบด้าน</div>
+        <div class="hero-stat-label">แข่งขันนำเสนอแนวคิดต่อผู้ประกอบการจริง</div>
       </div>
       <div>
-        <div class="hero-stat-num">Win</div>
-        <div class="hero-stat-label">ทีมชนะได้รับงบประมาณ &amp; พาร์ทเนอร์ชิป</div>
+        <div class="hero-stat-num">Build</div>
+        <div class="hero-stat-label">ทีมชนะลงมือสร้างจริง ไม่ใช่แค่ฝึกงาน</div>
       </div>
     </div>
   </div>
@@ -573,20 +632,20 @@
         <h2 class="section-title">สร้างสะพาน<br/>ระหว่างโลกธุรกิจ<br/>กับห้องเรียน</h2>
         <div class="about-body" style="margin-top:24px;">
           <p>
-            <strong>คบเด็กสร้างบ้าน</strong> คือโครงการที่ออกแบบมาเพื่อเชื่อมโยงระหว่าง
-            <strong>ผู้ประกอบการที่มีโจทย์ธุรกิจจริง</strong> กับ
-            <strong>นักศึกษาที่เต็มไปด้วยพลังงานและมุมมองใหม่</strong>
-            โดยเปิดพื้นที่ให้ทั้งสองฝ่ายได้เรียนรู้และเติบโตไปด้วยกัน
+            <strong>คบเด็กสร้างบ้าน</strong> ไม่ใช่โครงการฝึกงาน
+            แต่คือเวทีที่ <strong>ผู้ประกอบการนำโอกาสธุรกิจใหม่มาเปิดท้าทาย</strong>
+            และ <strong>นักศึกษา Pitch แนวคิดเพื่อชิงสิทธิ์ลงมือสร้างโครงการนั้นจริงๆ</strong>
           </p>
           <p>
-            ผู้ประกอบการนำโจทย์ธุรกิจที่แท้จริงมาวางไว้บนโต๊ะ
-            จากนั้นนักศึกษาจะนำเสนอแนวทางพัฒนาธุรกิจอย่างรอบด้าน
-            ครอบคลุมทั้งมิติตลาด การเงิน เทคโนโลยี และความยั่งยืน
+            ผู้ประกอบการ Commit ทรัพยากรตั้งแต่ต้น — ไม่ใช่แค่มาดูแล้วกลับบ้าน
+            นักศึกษาทีมที่ชนะไม่ได้แค่ "ผ่าน" วิชา
+            แต่ได้ลงมือสร้างโครงการใหม่ที่ยังไม่เคยมีอยู่จริง
+            ภายใต้การสนับสนุนและ Mentorship ของผู้ประกอบการ
           </p>
           <p>
-            ที่สุดแล้ว <strong>ผู้ประกอบการจะเลือกทีมที่ดีที่สุด</strong>
-            เพื่อนำโครงการไปพัฒนาต่อ พร้อมสนับสนุนงบประมาณ
-            หรือเปิดโอกาสให้น้องๆ ร่วมเป็นพาร์ทเนอร์ในธุรกิจนั้นๆ
+            นี่คือโมเดลที่ <strong>ทุกฝ่ายมี Skin in the Game</strong>
+            ผู้ประกอบการได้โครงการใหม่ที่สร้างโดยทีมที่เลือกเอง
+            นักศึกษาได้โอกาสเป็น Co-Founder — ไม่ใช่แค่ลูกจ้างฝึกงาน
           </p>
         </div>
       </div>
@@ -638,9 +697,9 @@
       </div>
       <div class="step">
         <div class="step-num"><span class="n">04</span></div>
-        <div class="step-icon">🤝</div>
-        <h3>เลือกทีม &amp; ร่วมทำธุรกิจ</h3>
-        <p>ผู้ประกอบการเลือกทีมที่ใช่ พร้อมสนับสนุนงบประมาณ หรือเชิญเป็นพาร์ทเนอร์ในโครงการ</p>
+        <div class="step-icon">🚀</div>
+        <h3>เลือกทีม &amp; สร้างโครงการใหม่ด้วยกัน</h3>
+        <p>ผู้ประกอบการเลือกทีมที่ใช่ — แล้วลงมือ Build โครงการใหม่จริง พร้อม Budget และ Mentorship เต็มรูปแบบ</p>
       </div>
     </div>
   </div>
@@ -658,23 +717,23 @@
         <div class="benefit-card-label">สำหรับ</div>
         <h3>ผู้ประกอบการ</h3>
         <ul class="benefit-list">
-          <li>ได้รับมุมมองใหม่จากคนรุ่นใหม่ที่มีพลังงานและความคิดสร้างสรรค์</li>
-          <li>เข้าถึงทีมที่วิเคราะห์โจทย์จริงของคุณอย่างลึกซึ้งและรอบด้าน</li>
-          <li>ประหยัดเวลาและต้นทุนในการค้นหาพาร์ทเนอร์หรือทีมงานรุ่นใหม่</li>
-          <li>สร้าง Brand Ambassador ในกลุ่มคนรุ่นใหม่และมหาวิทยาลัย</li>
-          <li>เลือกได้ว่าจะสนับสนุนงบ ชวนเป็นพาร์ทเนอร์ หรือรับเข้าทำงาน</li>
+          <li>เปิดโครงการใหม่ที่คุณอยากสร้าง — แล้วให้ทีมที่ดีที่สุด Pitch ว่าจะทำอย่างไร</li>
+          <li>ได้ทีมที่ Committed จริง ผ่านการแข่งขัน ไม่ใช่แค่คนที่สมัครฝึกงาน</li>
+          <li>ลดความเสี่ยงของการเปิดโครงการใหม่ด้วยมุมมองจากคนรุ่นใหม่ที่หลากหลาย</li>
+          <li>Co-create กับทีมที่คุณเลือกเอง มีแรงจูงใจสูง และพร้อมลงมือจริง</li>
+          <li>สร้าง Pipeline ของผู้ประกอบการรุ่นใหม่ที่รู้จักโมเดลธุรกิจของคุณดีที่สุด</li>
         </ul>
       </div>
       <div class="benefit-card students">
-        <div class="benefit-icon-big">🎓</div>
+        <div class="benefit-icon-big">🚀</div>
         <div class="benefit-card-label">สำหรับ</div>
         <h3>นักศึกษา</h3>
         <ul class="benefit-list">
-          <li>ได้ทำงานกับโจทย์ธุรกิจจริง ไม่ใช่แค่กรณีศึกษาในตำรา</li>
-          <li>พัฒนาทักษะ Pitching และการนำเสนอในระดับมืออาชีพ</li>
-          <li>โอกาสได้รับงบประมาณเพื่อพัฒนาโปรเจกต์ต่อจริง</li>
-          <li>เปิดประตูสู่โอกาสเป็นผู้ประกอบการและพาร์ทเนอร์ทางธุรกิจ</li>
-          <li>สร้าง Portfolio และ Connection กับผู้ประกอบการตัวจริง</li>
+          <li>ไม่ใช่การฝึกงาน — คือโอกาสเป็น Co-Founder ในโครงการที่สร้างจริง</li>
+          <li>ลงมือ Build โครงการใหม่ที่ยังไม่เคยมีใครทำ ตั้งแต่วันแรก</li>
+          <li>ได้รับ Budget จริง และ Mentorship ตัวต่อตัวจากผู้ประกอบการ</li>
+          <li>พัฒนาทักษะ Pitching ในระดับที่นักธุรกิจจริงใช้ตัดสินใจลงทุน</li>
+          <li>สร้าง Track Record ของการสร้างธุรกิจจริง ไม่ใช่แค่ทำรายงาน</li>
         </ul>
       </div>
     </div>
@@ -699,8 +758,42 @@
       </div>
       <div class="struct-card">
         <div class="struct-icon">🌱</div>
-        <h3>การพัฒนาต่อยอด</h3>
-        <p>ทีมที่ได้รับเลือกจะได้รับการสนับสนุนต่อเนื่อง ไม่ว่าจะเป็นงบประมาณ Mentorship หรือโอกาสร่วมลงทุนในโครงการจริง</p>
+        <h3>Commitment จากทุกฝ่าย</h3>
+        <p>ผู้ประกอบการ Commit ทรัพยากรและ Mentorship ตั้งแต่ต้น นักศึกษา Commit ด้วยการลงมือจริง — ทุกฝ่ายมี Skin in the Game</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISTINCTION: NOT INTERNSHIP -->
+<section class="distinction">
+  <div class="distinction-inner">
+    <h2 class="distinction-title">ทำไม <span>ไม่ใช่การฝึกงาน</span> — และทำไมมันสำคัญ</h2>
+    <div class="vs-grid">
+      <div class="vs-col old">
+        <div class="vs-label">โมเดลเก่า</div>
+        <h4>การฝึกงานทั่วไป</h4>
+        <ul class="vs-list">
+          <li>นักศึกษาทำงานใน "บริบทของฝึกงาน" — ไม่ใช่ Commitment จริง</li>
+          <li>ผู้ประกอบการมอบงานย่อย ไม่ใช่ความรับผิดชอบจริง</li>
+          <li>ผลลัพธ์คือ Report หรือ Presentation ที่ไม่ถูกนำไปใช้</li>
+          <li>ไม่มี Skin in the Game ทั้งสองฝ่าย</li>
+          <li>จบแล้วก็จบ — ไม่มีโครงการจริงเกิดขึ้น</li>
+        </ul>
+      </div>
+      <div class="vs-divider">
+        <div class="vs-divider-inner">VS</div>
+      </div>
+      <div class="vs-col new">
+        <div class="vs-label">คบเด็กสร้างบ้าน</div>
+        <h4>Co-Creation โครงการใหม่</h4>
+        <ul class="vs-list">
+          <li>นักศึกษา Pitch เพื่อชิงสิทธิ์ — เหมือน Startup ขอทุน Investor จริงๆ</li>
+          <li>ผู้ประกอบการ Commit ทรัพยากร ก่อนโครงการเริ่ม ไม่ใช่แค่ดู</li>
+          <li>ผลลัพธ์คือ โครงการที่ถูก Build และ Launch จริง</li>
+          <li>ทีมที่ชนะมีสถานะเป็น Partner ไม่ใช่ลูกจ้างระยะสั้น</li>
+          <li>สร้าง Track Record ของการสร้างธุรกิจจริงตั้งแต่อายุ 20 ต้นๆ</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -781,8 +874,8 @@
       <div class="tl-item">
         <div class="tl-dot"></div>
         <div class="tl-phase">Phase 5</div>
-        <h4>ประกาศผล &amp; เริ่มต้นความร่วมมือ</h4>
-        <p>ทีมชนะได้รับการสนับสนุนจากผู้ประกอบการ ไม่ว่าจะเป็นงบประมาณ ทรัพยากร หรือโอกาสร่วมเป็นพาร์ทเนอร์ในธุรกิจจริง</p>
+        <h4>ประกาศผล &amp; Launch โครงการใหม่ร่วมกัน</h4>
+        <p>ทีมที่ชนะได้รับ Budget เริ่มต้น, Mentorship ต่อเนื่อง และสถานะ Co-Creator ในโครงการใหม่ — นี่คือจุดเริ่มต้น ไม่ใช่จุดสิ้นสุด</p>
       </div>
     </div>
   </div>
@@ -791,11 +884,11 @@
 <!-- CTA -->
 <section class="cta">
   <div class="container">
-    <h2>พร้อมร่วมเปลี่ยนแปลง<br/>อนาคตธุรกิจไทยไปด้วยกัน?</h2>
-    <p>ไม่ว่าคุณจะเป็นผู้ประกอบการที่มีโจทย์รอการพัฒนา หรือนักศึกษาที่อยากพิสูจน์ตัวเอง — โครงการนี้คือพื้นที่ของคุณ</p>
+    <h2>พร้อม Pitch และสร้าง<br/>โครงการใหม่ไปด้วยกัน?</h2>
+    <p>ผู้ประกอบการที่อยากเปิดโครงการใหม่กับทีมที่ใช่ หรือนักศึกษาที่พร้อม Commit มากกว่าแค่ฝึกงาน — เริ่มต้นที่นี่</p>
     <div class="cta-btn-row">
-      <a href="#" class="btn-dark">สมัครในฐานะผู้ประกอบการ</a>
-      <a href="#" class="btn-light">สมัครในฐานะนักศึกษา</a>
+      <a href="#" class="btn-dark">เข้าร่วมในฐานะผู้ประกอบการ</a>
+      <a href="#" class="btn-light">Pitch ในฐานะทีมนักศึกษา</a>
     </div>
   </div>
 </section>
