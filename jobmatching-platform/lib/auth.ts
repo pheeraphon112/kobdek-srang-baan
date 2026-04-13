@@ -48,9 +48,9 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id
-        token.role = (user as any).role
-        token.pdpaConsent = (user as any).pdpaConsent
-        token.profileComplete = (user as any).profileComplete
+        token.role = user.role
+        token.pdpaConsent = user.pdpaConsent
+        token.profileComplete = user.profileComplete
       }
       // Allow client-side session updates
       if (trigger === "update" && session) {
@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string
-        session.user.role = token.role as any
+        session.user.role = token.role
         session.user.pdpaConsent = token.pdpaConsent as boolean
         session.user.profileComplete = token.profileComplete as boolean
       }

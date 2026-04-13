@@ -6,8 +6,8 @@ export default withAuth(
     const { token } = req.nextauth
     const { pathname } = req.nextUrl
 
-    // ── Logged-in users on auth pages → redirect to dashboard ──
-    if (pathname.startsWith("/auth") && token) {
+    // ── Logged-in users on auth/landing pages → redirect to dashboard ──
+    if ((pathname === "/" || pathname.startsWith("/auth")) && token) {
       return NextResponse.redirect(
         new URL(getDashboard(token.role as string), req.url)
       )
@@ -62,12 +62,8 @@ export default withAuth(
     callbacks: {
       authorized: ({ token, req }) => {
         const { pathname } = req.nextUrl
-        // Public routes
-        if (
-          pathname === "/" ||
-          pathname.startsWith("/auth") ||
-          pathname.startsWith("/api/auth")
-        ) {
+        // Public routes (all /api/* excluded via matcher)
+        if (pathname === "/" || pathname.startsWith("/auth")) {
           return true
         }
         return !!token
@@ -89,6 +85,6 @@ function getDashboard(role: string): string {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|api/auth).*)",
+    "/((?!_next/static|_next/image|favicon.ico|api).*)",
   ],
 }
